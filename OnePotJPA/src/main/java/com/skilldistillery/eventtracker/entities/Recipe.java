@@ -1,5 +1,8 @@
 package com.skilldistillery.eventtracker.entities;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,14 +12,25 @@ import javax.persistence.Id;
 public class Recipe {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	private String name;
-	
+	@Column(name="original_recipe")
+	private String originalRecipe;
+	@Column(name="actual_ingredients")
+	private String actualIngredients;
+	private Double cost;
+	@Column(name="actual_servings")
+	private Integer servings;
+	private LocalDate date;
+	private String notes;
+	//Constructor
+	public Recipe() {
+	}
 	//Getters/Setters
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -25,7 +39,42 @@ public class Recipe {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public String getOriginalRecipe() {
+		return originalRecipe;
+	}
+	public void setOriginalRecipe(String originalRecipe) {
+		this.originalRecipe = originalRecipe;
+	}
+	public String getActualIngredients() {
+		return actualIngredients;
+	}
+	public void setActualIngredients(String actualIngredients) {
+		this.actualIngredients = actualIngredients;
+	}
+	public Double getCost() {
+		return cost;
+	}
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}
+	public Integer getServings() {
+		return servings;
+	}
+	public void setServings(Integer servings) {
+		this.servings = servings;
+	}
+	public LocalDate getDate() {
+		return date;
+	}
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+	public String getNotes() {
+		return notes;
+	}
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
 	//hashCode/equals
 	@Override
 	public int hashCode() {
