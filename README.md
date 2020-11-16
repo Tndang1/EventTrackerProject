@@ -13,19 +13,21 @@ This project is designed to track the instant/one pot meals the user makes. The 
 3. REST
 4. MySQL
 5. Postman
+6. AWS
 
 ## Postman tests.
+All tests are meant to be run in postman using the included endpoint mapping. The correct method type for each test is listed in the header for each test. The create and update methods have valid JSON data included below the url.
 
 ### List all recipes/onepot meals. Method type "GET"
-http://localhost:8085/api/recipes
+http://3.134.35.160:8080/OnePot/api/recipes
 
 ### Find recipe/onepot meal. Method type "GET"
-http://localhost:8085/api/recipes/1
+http://3.134.35.160:8080/OnePot/api/recipes/1
 
 ### Create a new entry: Method type "POST"
-http://localhost:8085/api/recipes/
+http://3.134.35.160:8080/OnePot/api/recipes/
 
-#### JSON for POST test.
+####  JSON for POST test.
 {
     "name": "Create Tester",
     "originalRecipe": "https://thesaltymarshmallow.com/best-ever-instant-pot-beef-stew/",
@@ -37,9 +39,9 @@ http://localhost:8085/api/recipes/
 }
 
 ### Update an entry. Method type "PUT". Name will update, originalRecipe will ignore the null entry and not update.
-http://localhost:8085/api/recipes/2
+http://3.134.35.160:8080/OnePot/api/recipes/2
 
-#### JSON for PUT test
+####  JSON for PUT test
 {
     "name": "Update test",
     "originalRecipe": null,
@@ -51,4 +53,4 @@ http://localhost:8085/api/recipes/2
 }
 
 ### Delete an entry. Method type "DELETE"
-http://localhost:8085/api/recipes/3
+http://3.134.35.160:8080/OnePot/api/recipes/3
