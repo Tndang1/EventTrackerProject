@@ -17,6 +17,7 @@ This project is designed to track the instant/one pot meals the user makes. The 
 
 ## Postman tests.
 All tests are meant to be run in postman using the included endpoint mapping. The correct method type for each test is listed in the header for each test. The create and update methods have valid JSON data included below the url.
+##### The hyperlinks for the get methods can be entered into a web browser. All other methods are intended to be tested with postman.
 
 ### List all recipes/onepot meals. Method type "GET"
 http://3.134.35.160:8080/OnePot/api/recipes
