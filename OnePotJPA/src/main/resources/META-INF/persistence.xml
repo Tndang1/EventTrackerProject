@@ -9,7 +9,7 @@
     </provider>
     
     <!--  List Entities Here -->
-   <class>com.skilldistillery.eventtracker.Recipe</class>
+   <class>com.skilldistillery.eventtracker.entities.Recipe</class>
 
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/onepotdb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=CST" />
