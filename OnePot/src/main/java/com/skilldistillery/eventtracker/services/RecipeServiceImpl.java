@@ -1,5 +1,6 @@
 package com.skilldistillery.eventtracker.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,9 @@ public class RecipeServiceImpl implements RecipeService {
 	public Recipe createRecipe(Recipe recipe) {
 		if(recipe.getId() != null) {
 			recipe.setId(null);
+		}
+		if(recipe.getDate() == null) {
+			recipe.setDate(LocalDate.now());
 		}
 		recipe = repo.saveAndFlush(recipe);
 		return recipe;
