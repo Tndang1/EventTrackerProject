@@ -4,19 +4,21 @@ window.addEventListener('load', function () {
 
 var mainUl = document.createElement('ul');
 mainUl.setAttribute("class", "list-group");
-var newMealDiv = document.getElementById('newRecipeDiv');
+var homePage = location.href;
 
 function init() {
-	let homePage = location.href;
 	showMeals();
 	let showNewMealForm = document.getElementById('addAMealForm');
-	// let newMealDiv = document.getElementById('newRecipeDiv');
+	let newMealDiv = document.getElementById('newRecipeDiv');
 	let updateMealDiv = document.getElementById('updateRecipeDiv');
+	let alertBar = document.getElementById('alertBar');
 	showNewMealForm.addEventListener('click', function(e){
+		alertBar.setAttribute('class', 'd-none');
 		if(showNewMealForm.innerText == 'Add a meal?'){
 			showNewMealForm.innerText = 'Cancel';
 			showNewMealForm.setAttribute('class', 'btn btn-danger');
 			newMealDiv.setAttribute("class", "container text-center");
+
 		} else {
 			showNewMealForm.innerText = 'Add a meal?';
 			showNewMealForm.setAttribute('class', 'btn btn-primary mb-2');
@@ -38,6 +40,8 @@ function init() {
 		console.log('Test event listener');
 		updateMealDiv.setAttribute('class', 'd-none');
 		document.newRecipeForm.reset();
+		showMeals();
+		alertBar.setAttribute('class','alert alert-success alert-dismissible');
 	})
 };
 
@@ -50,18 +54,21 @@ function showMeals(){
 				let recipes = JSON.parse(xhr.responseText);
 				recipes = recipes.sort((a,b) => a.date-b.date).reverse();
 				let showAllMeals = document.getElementById('showAllMeals');
+				showAllMeals.innerHTML = "";
 				mainUl.innerHTML = "";
-				recipes.forEach((recipe, i) => {
+				recipes.forEach((recipe) => {
 					let li = document.createElement('li');
 					li.setAttribute("class", "list-group-item-action");
 					li.innerHTML = recipe.name + '. Made: ' + recipe.date;
 					li.addEventListener('click', function(e){
-						if(e.target.childElementCount == 0){
+						if(e.target.className == 'list-group-item-action'){
 						clearSelection(recipe);
-						li.setAttribute("class", "list-group-item active");
-						li.appendChild(displayMeal(recipe));
-						} else {
-							clearSelection(recipe);
+						getMeal(recipe.id);
+						// li.setAttribute("class", "list-group-item active");
+						// li.appendChild(displayMeal(recipe));
+						// } 
+						// else {
+						// 	clearSelection(recipe);
 						}
 					})
 					mainUl.appendChild(li);
@@ -84,19 +91,48 @@ function clearSelection(recipe){
 	}
 }
 
+function getMeal(mealId){
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/recipes/' + mealId);
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState === 4){
+			if(xhr.status === 200){
+				let meal = JSON.parse(xhr.responseText);
+				displayMeal(meal);
+			} else {
+				console.error(xhr.status);
+			}
+		}
+	};
+	xhr.send();
+}
+
 function displayMeal(meal){
-	let ulInner = document.createElement('ul');
-	let details = ['Original Recipe: ' + meal.originalRecipe,
+
+let infoTab = document.createElement('table');
+let details = [		'Original Recipe: ' + meal.originalRecipe,
+					'Name:' + meal.name,
+					'Date Made:' + meal.date,
 					'Ingredients Used: ' + meal.actualIngredients,
 					'Cost: ' + meal.cost,
 					'Servings: ' + meal.servings,
 					'Additional Notes: ' + meal.notes
 				]
-details.forEach(detail =>{
-	let liInner = document.createElement('li');
-	liInner.textContent = detail;
-	ulInner.appendChild(liInner);
-	})
+	let recRow = document.createElement('tr');
+	let recData = document.createElement('td');
+	let add = document.createElement('a');
+	add.href = meal.originalRecipe;
+	recData.appendChild(add);
+	recRow.appendChild(recData);
+	infoTab.appendChild(recRow);
+		details.forEach(detail =>{
+		let row = document.createElement('tr');
+		let data = document.createElement('td');
+		data.innerText = detail;
+		row.appendChild(data);
+		infoTab.appendChild(row);
+		})
+
 	let delBtn = document.createElement('button');
 	delBtn.setAttribute("class", "btn btn-danger float-right");
 	delBtn.innerHTML = 'Delete';
@@ -104,35 +140,46 @@ details.forEach(detail =>{
 		deleteMeal(meal.id);
 		showMeals();
 	})
+	let homeBtn = document.createElement('button');
+	homeBtn.innerHTML = 'Return to index';
+	homeBtn.setAttribute('class','btn btn-info center')
+	homeBtn.addEventListener('click', init());
 	let updateBtn = document.createElement('button');
 	updateBtn.innerHTML = 'Update this entry';
-	updateBtn.setAttribute("class","btn btn-secondary");
+	updateBtn.setAttribute("class","btn btn-secondary float-left");
 	updateBtn.addEventListener('click', function(e){
+		console.log(e.target.parentElement);
 		showUpdateMealForm(meal);
 	})
-	let delBtnDiv = document.createElement('div');
-	delBtnDiv.setAttribute('name','delBtnDiv');
-	delBtnDiv.setAttribute('class','test');
-	let updateBtnDiv = document.createElement('div');
-	updateBtnDiv.setAttribute('name','updateBtnDiv');
-	updateBtnDiv.setAttribute('class','test');
-	ulInner.appendChild(updateBtn);
-	ulInner.appendChild(delBtn);
-	return  ulInner;
+	let buttonRow = document.createElement('tr');
+	let updateBtnData = document.createElement('td');
+	let homeBtnData = document.createElement('td');
+	let delBtnData = document.createElement('td');
+
+	updateBtnData.appendChild(updateBtn);
+	homeBtnData.appendChild(homeBtn);
+	delBtnData.appendChild(delBtn);
+	
+	buttonRow.appendChild(updateBtnData);
+	buttonRow.appendChild(homeBtnData);
+	buttonRow.appendChild(delBtnData);
+	let mealInfoDiv = document.getElementById('displayMealDiv');
+	mealInfoDiv.appendChild(infotab);
 }
 
 function showUpdateMealForm(mealInfo){
-	mainUl.innerHTML = "";
+	// mainUl.innerHTML = "";
 	
 	var updateRecipeForm = document.updateRecipeForm;
 
-	// let newMealDiv = document.getElementById('newRecipeDiv');
+	let newMealDiv = document.getElementById('newRecipeDiv');
 	let updateMealDiv = document.getElementById('updateRecipeDiv');
 	updateMealDiv.setAttribute("class", "container text-center");
 	newMealDiv.setAttribute("class", "d-none");
-	let showNewMealForm = document.getElementById('addAMealForm');
-	showNewMealForm.setAttribute('class', 'btn btn-danger');
-	showNewMealForm.innerText = 'Cancel';
+	let showNewMealFormBtn = document.getElementById('addAMealForm');
+	showNewMealFormBtn.setAttribute('class', 'd-none');
+	// showNewMealFormBtn.setAttribute('class', 'btn btn-danger');
+	// showNewMealFormBtn.innerText = 'Cancel';
 
 	updateRecipeForm.name.setAttribute('value', mealInfo.name);
 	updateRecipeForm.originalRecipe.setAttribute('value', mealInfo.originalRecipe);
@@ -157,6 +204,9 @@ function updateMeal(mealUpdate){
 		if (xhr.readyState === 4){
 			if (xhr.status === 200) {
 				var data = JSON.parse(xhr.responseText);
+				console.log(data);
+				updateRecipeForm.reset();
+				showMeals();
 			}
 		}
 	};
@@ -170,8 +220,7 @@ function updateMeal(mealUpdate){
 	};
 	let mealJSON = JSON.stringify(recipeUpdate);
 	xhr.send(mealJSON);
-	updateRecipeForm.reset();
-	showMeals();
+
 }
 
 function addMeal(meal){
@@ -214,4 +263,3 @@ function deleteMeal(mealId){
 	xhr.send();
 	showMeals();
 }
-//xhr.open('PUT', 'api/pangolins/'+pangoId);
