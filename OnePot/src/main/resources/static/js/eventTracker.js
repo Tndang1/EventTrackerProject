@@ -7,10 +7,9 @@ mainUl.setAttribute("class", "list-group");
 var newMealDiv = document.getElementById('newRecipeDiv');
 
 function init() {
-	let homePage = location.href;
 	showMeals();
 	let showNewMealForm = document.getElementById('addAMealForm');
-	// let newMealDiv = document.getElementById('newRecipeDiv');
+	let newMealDiv = document.getElementById('newRecipeDiv');
 	let updateMealDiv = document.getElementById('updateRecipeDiv');
 	showNewMealForm.addEventListener('click', function(e){
 		if(showNewMealForm.innerText == 'Add a meal?'){
@@ -90,6 +89,7 @@ function displayMeal(meal){
 					'Ingredients Used: ' + meal.actualIngredients,
 					'Cost: ' + meal.cost,
 					'Servings: ' + meal.servings,
+					'Cost per meal: ' + (meal.cost / meal.servings),
 					'Additional Notes: ' + meal.notes
 				]
 details.forEach(detail =>{
@@ -126,7 +126,7 @@ function showUpdateMealForm(mealInfo){
 	
 	var updateRecipeForm = document.updateRecipeForm;
 
-	// let newMealDiv = document.getElementById('newRecipeDiv');
+	let newMealDiv = document.getElementById('newRecipeDiv');
 	let updateMealDiv = document.getElementById('updateRecipeDiv');
 	updateMealDiv.setAttribute("class", "container text-center");
 	newMealDiv.setAttribute("class", "d-none");
