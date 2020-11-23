@@ -9,9 +9,12 @@
   </head>
   <body>
     <div class="container-fluid">
-    <h1 class="test">Meal tracker.</h1>
-    <div class="form" id = 'newRecipeDiv'>
-      <form name='newRecipeForm' id='newRecipeForm' class="form-inline">
+    <div class='mealPageHeader'>
+    <h1>Meal tracker.</h1>
+    </div>
+
+    <div class="d-none" id = 'newRecipeDiv'>
+      <form name='newRecipeForm' id='newRecipeForm' class="form-group">
         <label for="newRecipeForm">Submit a new meal/recipe.</label>
         <br>
         <input class="form-control mb-2 mr-sm-2" type="text" placeholder="Name" name="name">
@@ -22,21 +25,27 @@
         <textarea class="form-control mb-2 mr-sm-2" cols="30" name="notes" placeholder="Notes"></textarea>
         <button type="submit" class="btn btn-primary mb-2" name="submitNew">Submit</button>
       </form>
+      <br>
     </div>
-    <div class="d-none form" id = 'updateRecipeDiv'>
-      <form name='updateRecipeForm' id='updateRecipeForm' class="d-none form-inline">
+    <div id ='updateRecipeDiv' class='d-none'>
+      <form name='updateRecipeForm' id='updateRecipeForm' class="form-group">
         <label for="updateRecipeForm" id="updateFormLabel">Update Selected recipe</label>
         <br>
-        <input class="form-control mb-2 mr-sm-2" type="text" placeholder="Name" name="name">
-        <input class="form-control mb-2 mr-sm-2" type="text" placeholder="Original Recipe URL" name="originalRecipe">
-        <input class="form-control mb-2 mr-sm-2" type="number" step="0.01" placeholder="Cost" name="cost">
-        <input class="form-control mb-2 mr-sm-2" type="number" placeholder="Servings" name="servings">
-        <textarea class="form-control mb-2 mr-sm-2" cols="30" name="actualIngredients" placeholder="Ingredients, seperate with ','"></textarea>
-        <textarea class="form-control mb-2 mr-sm-2" cols="30" name="notes" placeholder="Notes"></textarea>
-        <button type="submit" class="btn btn-primary mb-2" name="submitUpdate">Submit Update</button>
+        <input class="form-control mb-2 mr-sm-2" type="text" placeholder="Name" id="updateName" name="name">
+        <input class="form-control mb-2 mr-sm-2" type="text" placeholder="Original Recipe URL" id="updateOrigRec"name="originalRecipe">
+        <input class="form-control mb-2 mr-sm-2" type="number" step="0.01" placeholder="Cost" id="updateCost" name="cost">
+        <input class="form-control mb-2 mr-sm-2" type="number" placeholder="Servings" id="updateServ" name="servings">
+        <textarea class="form-control mb-2 mr-sm-2" cols="30" name="actualIngredients" id="updateActIngred" placeholder="Ingredients, seperate with ','"></textarea>
+        <textarea class="form-control mb-2 mr-sm-2" cols="30" name="notes" id="updateNotes" placeholder="Notes"></textarea>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mb-2" name="submitUpdate">Submit Update</button>
+        </div>
       </form>
     </div>
-    <div id="showAllMeals"></div>
+    <div class="container text-center">
+      <button type="submit" id="addAMealForm" class="btn btn-primary mb-2">Add a meal?</button>
+    </div>
+    <div id="showAllMeals" class='container'></div>
     </div>
   </body>
 </html>

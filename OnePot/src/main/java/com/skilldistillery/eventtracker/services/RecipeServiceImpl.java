@@ -41,12 +41,12 @@ public class RecipeServiceImpl implements RecipeService {
 	public Recipe updateRecipe(Recipe recipe, Integer id) {
 		Recipe dbRecipe = findRecipeById(id);
 		if (dbRecipe != null) {
-			if(recipe.getActualIngredients() != null) dbRecipe.setActualIngredients(recipe.getActualIngredients());
+			if(recipe.getActualIngredients() != null || recipe.getActualIngredients() != "") dbRecipe.setActualIngredients(recipe.getActualIngredients());
 			if(recipe.getCost() != null) dbRecipe.setCost(recipe.getCost());
 			if(recipe.getDate() != null) dbRecipe.setDate(recipe.getDate());
-			if(recipe.getName() != null) dbRecipe.setName(recipe.getName());
-			if(recipe.getNotes() != null) dbRecipe.setNotes(recipe.getNotes());
-			if(recipe.getOriginalRecipe() != null) dbRecipe.setOriginalRecipe(recipe.getOriginalRecipe());
+			if(recipe.getName() != null || recipe.getName() != "") dbRecipe.setName(recipe.getName());
+			if(recipe.getNotes() != null || recipe.getNotes() != null) dbRecipe.setNotes(recipe.getNotes());
+			if(recipe.getOriginalRecipe() != null || recipe.getOriginalRecipe() != null) dbRecipe.setOriginalRecipe(recipe.getOriginalRecipe());
 			if(recipe.getServings() != null) dbRecipe.setServings(recipe.getServings());
 			repo.flush();
 		}

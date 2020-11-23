@@ -2,20 +2,42 @@ window.addEventListener('load', function () {
 	init();
 });
 
-// var newRecipeForm = document.getElementById("newRecipeForm");
-// console.log(newRecipeForm.firstElementChild);
-// var updateRecipeForm = document.getElementById("updateRecipeForm");
 var mainUl = document.createElement('ul');
 mainUl.setAttribute("class", "list-group");
+var newMealDiv = document.getElementById('newRecipeDiv');
 
 function init() {
+	let homePage = location.href;
 	showMeals();
+	let showNewMealForm = document.getElementById('addAMealForm');
+	// let newMealDiv = document.getElementById('newRecipeDiv');
+	let updateMealDiv = document.getElementById('updateRecipeDiv');
+	showNewMealForm.addEventListener('click', function(e){
+		if(showNewMealForm.innerText == 'Add a meal?'){
+			showNewMealForm.innerText = 'Cancel';
+			showNewMealForm.setAttribute('class', 'btn btn-danger');
+			newMealDiv.setAttribute("class", "container text-center");
+		} else {
+			showNewMealForm.innerText = 'Add a meal?';
+			showNewMealForm.setAttribute('class', 'btn btn-primary mb-2');
+			newMealDiv.setAttribute('class', 'd-none');
+			updateMealDiv.setAttribute('class', 'd-none');
+			document.newRecipeForm.reset();
+			document.updateRecipeForm.reset();
+			showMeals();
+
+		}
+	})
 	document.newRecipeForm.submitNew.addEventListener('click', function(e){
 		e.preventDefault();
+		showNewMealForm.innerText = 'Add a meal?';
+		showNewMealForm.setAttribute('class', 'btn btn-primary mb-2');
+		newMealDiv.setAttribute('class', 'd-none');
 		var newMealInfo = document.newRecipeForm;
 		addMeal(newMealInfo);
 		console.log('Test event listener');
-		showMeals();
+		updateMealDiv.setAttribute('class', 'd-none');
+		document.newRecipeForm.reset();
 	})
 };
 
@@ -82,16 +104,74 @@ details.forEach(detail =>{
 		deleteMeal(meal.id);
 		showMeals();
 	})
-	// let updateBtn = document.createElement('button');
-	// updateBtn.innerHTML = 'Update this entry';
-	// updateBtn.setAttribute("class","btn btn-secondary");
-	// updateBtn.addEventListener('click', function(e){
-	// 	newRecipeForm.setAttribute("class", "d-none form-inline");
-	// 	updateRecipeForm.setAttribute("class", "form-inline");
-	// })
-	// ulInner.appendChild(updateBtn);
+	let updateBtn = document.createElement('button');
+	updateBtn.innerHTML = 'Update this entry';
+	updateBtn.setAttribute("class","btn btn-secondary");
+	updateBtn.addEventListener('click', function(e){
+		showUpdateMealForm(meal);
+	})
+	let delBtnDiv = document.createElement('div');
+	delBtnDiv.setAttribute('name','delBtnDiv');
+	delBtnDiv.setAttribute('class','test');
+	let updateBtnDiv = document.createElement('div');
+	updateBtnDiv.setAttribute('name','updateBtnDiv');
+	updateBtnDiv.setAttribute('class','test');
+	ulInner.appendChild(updateBtn);
 	ulInner.appendChild(delBtn);
 	return  ulInner;
+}
+
+function showUpdateMealForm(mealInfo){
+	mainUl.innerHTML = "";
+	
+	var updateRecipeForm = document.updateRecipeForm;
+
+	// let newMealDiv = document.getElementById('newRecipeDiv');
+	let updateMealDiv = document.getElementById('updateRecipeDiv');
+	updateMealDiv.setAttribute("class", "container text-center");
+	newMealDiv.setAttribute("class", "d-none");
+	let showNewMealForm = document.getElementById('addAMealForm');
+	showNewMealForm.setAttribute('class', 'btn btn-danger');
+	showNewMealForm.innerText = 'Cancel';
+
+	updateRecipeForm.name.setAttribute('value', mealInfo.name);
+	updateRecipeForm.originalRecipe.setAttribute('value', mealInfo.originalRecipe);
+	updateRecipeForm.cost.setAttribute('value', mealInfo.cost);
+	updateRecipeForm.servings.setAttribute('value', mealInfo.servings);
+	updateRecipeForm.actualIngredients.textContent = mealInfo.actualIngredients;
+	updateRecipeForm.notes.textContent = mealInfo.notes;
+
+	document.updateRecipeForm.submitUpdate.addEventListener('click', function(e){
+		console.log(e.target);
+		var updatedMealInfo = document.updateRecipeForm;
+		updatedMealInfo.id = mealInfo.id;
+		updateMeal(updatedMealInfo);
+	})
+}
+
+function updateMeal(mealUpdate){
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/recipes/' + mealUpdate.id);
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState === 4){
+			if (xhr.status === 200) {
+				var data = JSON.parse(xhr.responseText);
+			}
+		}
+	};
+	let recipeUpdate = {
+		name:mealUpdate.name.value,
+		originalRecipe:mealUpdate.originalRecipe.value,
+		cost:parseFloat(mealUpdate.cost.value),
+		servings:parseInt(mealUpdate.servings.value),
+		actualIngredients:mealUpdate.actualIngredients.value,
+		notes:mealUpdate.notes.value
+	};
+	let mealJSON = JSON.stringify(recipeUpdate);
+	xhr.send(mealJSON);
+	updateRecipeForm.reset();
+	showMeals();
 }
 
 function addMeal(meal){
