@@ -34,9 +34,9 @@ function init() {
 		newMealDiv.setAttribute('class', 'd-none');
 		var newMealInfo = document.newRecipeForm;
 		addMeal(newMealInfo);
-		console.log('Test event listener');
 		updateMealDiv.setAttribute('class', 'd-none');
 		document.newRecipeForm.reset();
+		showMeals();
 	})
 };
 
@@ -157,6 +157,8 @@ function updateMeal(mealUpdate){
 		if (xhr.readyState === 4){
 			if (xhr.status === 200) {
 				var data = JSON.parse(xhr.responseText);
+				updateRecipeForm.reset();
+				showMeals();
 			}
 		}
 	};
@@ -170,8 +172,7 @@ function updateMeal(mealUpdate){
 	};
 	let mealJSON = JSON.stringify(recipeUpdate);
 	xhr.send(mealJSON);
-	updateRecipeForm.reset();
-	showMeals();
+
 }
 
 function addMeal(meal){
@@ -183,6 +184,7 @@ function addMeal(meal){
 			if (xhr.status == 200 || xhr.status == 201) {
 				var data = JSON.parse(xhr.responseText);
 				document.newRecipeForm.reset();
+				showMeals();
 			}
 		}
 	};
@@ -196,7 +198,6 @@ function addMeal(meal){
 	};
 	let mealJSON = JSON.stringify(recipe);
 	xhr.send(mealJSON);
-	showMeals();
 }
 
 function deleteMeal(mealId){
@@ -206,12 +207,12 @@ function deleteMeal(mealId){
 		if (xhr.readyState === 4){
 			if(xhr.status == 204){
 				console.log('Successfully Deleted a thing.');
+				showMeals();
 			} else {
 				console.error(xhr.status + ': ' + xhr.responseText);
 			}
 		}
 	};
 	xhr.send();
-	showMeals();
 }
 //xhr.open('PUT', 'api/pangolins/'+pangoId);
