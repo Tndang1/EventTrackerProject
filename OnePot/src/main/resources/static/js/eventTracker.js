@@ -23,7 +23,7 @@ function init() {
 			updateMealDiv.setAttribute('class', 'd-none');
 			document.newRecipeForm.reset();
 			document.updateRecipeForm.reset();
-			showMeals();
+			location.reload();
 
 		}
 	})
@@ -36,7 +36,7 @@ function init() {
 		addMeal(newMealInfo);
 		updateMealDiv.setAttribute('class', 'd-none');
 		document.newRecipeForm.reset();
-		showMeals();
+		location.reload();
 	})
 };
 
@@ -184,7 +184,7 @@ function addMeal(meal){
 			if (xhr.status == 200 || xhr.status == 201) {
 				var data = JSON.parse(xhr.responseText);
 				document.newRecipeForm.reset();
-				showMeals();
+				location.reload();
 			}
 		}
 	};
@@ -207,7 +207,7 @@ function deleteMeal(mealId){
 		if (xhr.readyState === 4){
 			if(xhr.status == 204){
 				console.log('Successfully Deleted a thing.');
-				showMeals();
+				location.reload();
 			} else {
 				console.error(xhr.status + ': ' + xhr.responseText);
 			}

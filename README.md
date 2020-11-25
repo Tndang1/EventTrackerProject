@@ -15,6 +15,16 @@ This project is designed to track the instant/one pot meals the user makes. The 
 5. Postman
 6. AWS
 
+## Page use
+1. Initial page. User can click the 'Add a meal' button. The form for adding meal info will appear at the top of the page. User can fillout the form and select submit to add a meal. User can also select cancel and close the form.
+2. Initial page. User can select a meal from the list below the 'Add a meal' button. This will expand the meal and provide more detailed information about that entry. Clicking the top of the entry will close it. They will also see an 'update' and 'delete' button.
+3. On selecting update the update form will appear. User can edit each field and submit, or select cancel.
+4. On selecting delete the entry is removed, and user is returned to the homepage.
+
+## Bugs
+1. If the user selects and closes several entries they will sometimes duplicate the previous entries information in the page. A refresh or selecting the entry will show the correct information.
+2. If the user selects update, then cancels, then updates a different entry the first entry will copy the informatino of the second entry.
+
 ## Postman tests.
 All tests are meant to be run in postman using the included endpoint mapping. The correct method type for each test is listed in the header for each test. The create and update methods have valid JSON data included below the url.
 ##### The hyperlinks for the get methods can be entered into a web browser. All other methods are intended to be tested with postman.
