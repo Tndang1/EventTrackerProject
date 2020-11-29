@@ -1,0 +1,12 @@
+.table, th, td{
+  padding: 10px;
+}
+.mainTableRow{
+  cursor: pointer;
+}
+.mainDisplay{
+  margin: auto;
+  width: 30%;
+  border: 3px solid #0f8ed896;
+  padding: 10px;
+}

@@ -1,0 +1,271 @@
+<div class="container-fluid">
+  <div class="text-center">
+    <br />
+    <h1 class="text-center">Welcome to the Food Tracker</h1>
+    <input *ngIf="!selected && !showNewForm" type="button" class="btn btn-info" value="Add a Meal" (click)="showNewForm=true"/>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col"></div>
+    <div class="col col-md-auto">
+      <br />
+      <!-- Recipe List -->
+      <table *ngIf="!selected && !showNewForm" class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th>Name</th>
+            <th>Date Made</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let recipe of recipes"
+            (click)="selected = recipe"
+            class="mainTableRow"
+          >
+            <td>{{ recipe.name }}</td>
+            <td>{{ recipe.date }}</td>
+            <td>${{ recipe.cost }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Detailed View -->
+      <table *ngIf="selected && !showUpdateForm" class="detailTable">
+        <thead>
+          <tr>
+            <th colspan="3">{{ selected.name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Date Made</td>
+            <td>{{ selected.date }}</td>
+          </tr>
+          <tr>
+            <td>Original Recipe</td>
+            <td>{{ selected.originalRecipe }}</td>
+          </tr>
+          <tr>
+            <td>Actual Ingredients</td>
+            <td>{{ selected.actualIngredients }}</td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+            <td>{{ selected.cost }}</td>
+          </tr>
+          <tr>
+            <td>Servings</td>
+            <td>{{ selected.servings }}</td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>{{ selected.notes }}</td>
+          </tr>
+        </tbody>
+        <tr>
+          <td>
+            <input
+              type="button"
+              class="btn btn-primary"
+              value="Return"
+              (click)="return()"
+            />
+          </td>
+          <td>
+            <input
+              type="button"
+              class="btn btn-warning"
+              value="Update"
+              (click)="updateForm()"
+            />
+          </td>
+          <td><input type="button" class="btn btn-danger" value="Delete" /></td>
+        </tr>
+      </table>
+
+      <!-- Update Form -->
+      <table *ngIf="selected && showUpdateForm" class="detailTable">
+        <thead>
+          <tr>
+            <th colspan="2">Updating {{ selected.name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Name:</td>
+            <td>
+              <input type="text" name="name" [(ngModel)]="updateRecipe.name" />
+            </td>
+          </tr>
+          <tr>
+            <td>Date Made</td>
+            <td>
+              <input type="date" name="date" [(ngModel)]="updateRecipe.date" />
+            </td>
+          </tr>
+          <tr>
+            <td>Original Recipe</td>
+            <td>
+              <input
+                type="text"
+                name="originalRecipe"
+                [(ngModel)]="updateRecipe.originalRecipe"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Actual Ingredients</td>
+            <td>
+              <input
+                type="text"
+                name="actualIngredients"
+                [(ngModel)]="updateRecipe.actualIngredients"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+            <td>
+              <input
+                type="number"
+                name="cost"
+                step="0.01"
+                [(ngModel)]="updateRecipe.cost"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Servings</td>
+            <td>
+              <input
+                type="number"
+                name="servings"
+                [(ngModel)]="updateRecipe.servings"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>
+              <input
+                type="text"
+                name="notes"
+                [(ngModel)]="updateRecipe.notes"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <tr>
+          <td>
+            <input
+            type="button"
+            value="Submit"
+            class="btn btn-warning"
+            (click)="updateAMeal(updateRecipe)"
+          />
+          </td>
+          <td>
+            <input
+              type="button"
+              class="btn btn-primary"
+              value="Return"
+              (click)="return()"
+            />
+          </td>
+        </tr>
+      </table>
+
+      <!-- New Form -->
+      <table *ngIf="showNewForm" class="detailTable">
+        <tbody>
+          <tr>
+            <td>Name:</td>
+            <td>
+              <input type="text" name="name" [(ngModel)]="newRecipe.name" />
+            </td>
+          </tr>
+          <tr>
+            <td>Date Made</td>
+            <td>
+              <input type="date" name="date" [(ngModel)]="newRecipe.date" />
+            </td>
+          </tr>
+          <tr>
+            <td>Original Recipe</td>
+            <td>
+              <input
+                type="text"
+                name="originalRecipe"
+                [(ngModel)]="newRecipe.originalRecipe"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Actual Ingredients</td>
+            <td>
+              <input
+                type="text"
+                name="actualIngredients"
+                [(ngModel)]="newRecipe.actualIngredients"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+            <td>
+              <input
+                type="number"
+                name="cost"
+                step="0.01"
+                [(ngModel)]="newRecipe.cost"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Servings</td>
+            <td>
+              <input
+                type="number"
+                name="servings"
+                [(ngModel)]="newRecipe.servings"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>
+              <input
+                type="text"
+                name="notes"
+                [(ngModel)]="newRecipe.notes"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <tr>
+          <td>
+            <input type="button" value="Submit" class="btn btn-success" (click)="addAMeal(newRecipe)">
+          </td>
+          <td>
+            <input
+              type="button"
+              class="btn btn-warning"
+              value="Cancel"
+              (click)="return()"
+            />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+<!-- id: number;
+name: string;
+originalRecipe: string;
+actualIngredients: string;
+cost: number;
+servings: number;
+date: Date;
+notes: string; -->
