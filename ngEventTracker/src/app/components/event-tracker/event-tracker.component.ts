@@ -64,8 +64,6 @@ export class EventTrackerComponent implements OnInit {
     this.showUpdateForm = true;
   }
   updateAMeal(updatedRecipe: Recipe):void{
-    console.log(updatedRecipe.id);
-
     this.recipeService.update(updatedRecipe).subscribe(
       data=> {
         this.loadRecipe();
@@ -73,9 +71,21 @@ export class EventTrackerComponent implements OnInit {
       },
       err=>{
         console.error(err);
-        console.error('Failed to add meal');
+        console.error('Failed to update meal');
 
 
+      }
+    )
+  }
+  deleteMeal():void{
+    this.recipeService.delete(this.selected).subscribe(
+      data=> {
+        this.loadRecipe();
+        this.return();
+      },
+      err=>{
+        console.error(err);
+        console.error('Failed to delete');
       }
     )
   }

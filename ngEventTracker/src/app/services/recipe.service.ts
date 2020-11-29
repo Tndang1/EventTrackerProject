@@ -39,6 +39,15 @@ export class RecipeService {
       })
     )
   }
+
+  delete(meal: Recipe){
+    return this.http.delete<Recipe>(this.url+"/"+meal.id).pipe(
+      catchError((err:any)=>{
+        console.error(err);
+        return throwError('Failed to delete')
+      })
+    )
+  }
   // index(): Recipe[]{
   //   return [...this.recipes];
   // }
