@@ -2,6 +2,7 @@
   <div class="text-center">
     <br />
     <h1 class="text-center">Welcome to the Food Tracker</h1>
+    <hr>
     <input *ngIf="!selected && !showNewForm" type="button" class="btn btn-info" value="Add a Meal" (click)="showNewForm=true"/>
   </div>
   <div class="row justify-content-md-center">
@@ -160,7 +161,7 @@
           <td>
             <input
             type="button"
-            value="Submit"
+            value="Save"
             class="btn btn-warning"
             (click)="updateAMeal(updateRecipe)"
           />
@@ -182,13 +183,13 @@
           <tr>
             <td>Name:</td>
             <td>
-              <input type="text" name="name" [(ngModel)]="newRecipe.name" />
+              <input type="text" name="name" [(ngModel)]="newRecipe.name"/>
             </td>
           </tr>
           <tr>
             <td>Date Made</td>
             <td>
-              <input type="date" name="date" [(ngModel)]="newRecipe.date" />
+              <input type="date" name="date" [(ngModel)]="newRecipe.date"/>
             </td>
           </tr>
           <tr>
@@ -218,6 +219,7 @@
                 type="number"
                 name="cost"
                 step="0.01"
+                min=0
                 [(ngModel)]="newRecipe.cost"
               />
             </td>
@@ -228,6 +230,7 @@
               <input
                 type="number"
                 name="servings"
+                min=0
                 [(ngModel)]="newRecipe.servings"
               />
             </td>

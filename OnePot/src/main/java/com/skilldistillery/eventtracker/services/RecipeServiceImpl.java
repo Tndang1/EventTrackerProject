@@ -16,7 +16,7 @@ public class RecipeServiceImpl implements RecipeService {
 	private RecipeRepository repo;
 	@Override
 	public List<Recipe> getAllRecipes() {
-		return repo.findAll();
+		return repo.findAllByOrderByDateDesc();
 	}
 	@Override
 	public Recipe findRecipeById(Integer id) {

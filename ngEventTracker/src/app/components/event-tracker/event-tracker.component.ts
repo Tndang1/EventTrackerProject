@@ -35,9 +35,7 @@ export class EventTrackerComponent implements OnInit {
     this.recipeService.index().subscribe(
       data=>{
       this.recipes = data;
-      this.recipes.sort((a,b)=>a.date-b.date).reverse();
-      console.log('Stuff successful');
-      },
+        },
       err=>{
         console.error('Stuff failed');
         console.error(err);
