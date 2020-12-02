@@ -30,6 +30,23 @@ export class EventTrackerComponent implements OnInit {
     this.showNewForm = false;
     this.showUpdateForm = false;
   }
+  costPerServing(recipe:Recipe):number{
+    return (recipe.cost/recipe.servings);
+  }
+  totalCost(recipes: Recipe[]):number{
+    let value:number = 0;
+    recipes.forEach(recipe => {
+      value += recipe.cost;
+    });
+    return value;
+  }
+  totalServings(recipes: Recipe[]):number{
+    let value:number = 0;
+    recipes.forEach(recipe => {
+      value += recipe.servings;
+    });
+    return value;
+  }
 
   loadRecipe():void{
     this.recipeService.index().subscribe(
@@ -37,7 +54,7 @@ export class EventTrackerComponent implements OnInit {
       this.recipes = data;
         },
       err=>{
-        console.error('Stuff failed');
+        console.error('EventTrackerComponent.loadRecipe(): Failed to load');
         console.error(err);
       }
     )
@@ -51,7 +68,7 @@ export class EventTrackerComponent implements OnInit {
       },
       err=>{
         console.error(err);
-        console.error('Failed to add meal');
+        console.error('EventTrackerComponent.addAMeal():Failed to add meal');
 
 
       }
@@ -69,7 +86,7 @@ export class EventTrackerComponent implements OnInit {
       },
       err=>{
         console.error(err);
-        console.error('Failed to update meal');
+        console.error('EventTrackerComponent.updateAMeal():Failed to update meal');
 
 
       }
@@ -83,7 +100,7 @@ export class EventTrackerComponent implements OnInit {
       },
       err=>{
         console.error(err);
-        console.error('Failed to delete');
+        console.error('EventTrackerComponent.deleteMeal():Failed to delete');
       }
     )
   }

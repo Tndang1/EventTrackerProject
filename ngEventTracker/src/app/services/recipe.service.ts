@@ -17,25 +17,35 @@ export class RecipeService {
     return this.http.get<Recipe[]>(this.url).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('KABOOM');
+        return throwError('RecipeServiceTS.index(): Failed to get recipes[]');
       })
     );
   }
 
   create(meal: Recipe){
-    return this.http.post<Recipe>(this.url, meal).pipe(
+    const httpOptions ={
+      headers: {
+        'Content-type':'application/json'
+      }
+    };
+    return this.http.post<Recipe>(this.url, meal, httpOptions).pipe(
       catchError((err:any) => {
         console.error(err);
-        return throwError('Failed to post')
+        return throwError('RecipeServiceTS.create(): Failed to create recipe');
       })
     )
   }
 
   update(meal: Recipe){
-    return this.http.put<Recipe>(this.url+"/"+meal.id, meal).pipe(
+    const httpOptions ={
+      headers: {
+        'Content-type':'application/json'
+      }
+    };
+    return this.http.put<Recipe>(this.url+"/"+meal.id, meal, httpOptions).pipe(
       catchError((err:any)=>{
         console.error(err);
-        return throwError('Failed to put')
+        return throwError('RecipeServiceTS.create(): Failed to update recipe');
       })
     )
   }
@@ -44,7 +54,7 @@ export class RecipeService {
     return this.http.delete<Recipe>(this.url+"/"+meal.id).pipe(
       catchError((err:any)=>{
         console.error(err);
-        return throwError('Failed to delete')
+        return throwError('RecipeServiceTS.delete(): Failed to delete')
       })
     )
   }
