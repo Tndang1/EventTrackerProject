@@ -15,6 +15,8 @@ export class EventTrackerComponent implements OnInit {
   updateRecipe = new Recipe();
   showNewForm: boolean = false;
   showUpdateForm: boolean = false;
+  monthVal = -1;
+  yearVal = -1;
 
   constructor(private recipeService: RecipeService){}
 

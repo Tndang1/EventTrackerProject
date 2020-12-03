@@ -12,6 +12,7 @@ import { AboutComponent } from './components/about/about.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MonthSelectorPipe } from './pipes/month-selector.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FooterComponent } from './components/footer/footer.component';
     AboutComponent,
     NavBarComponent,
     NotFoundComponent,
-    FooterComponent
+    FooterComponent,
+    MonthSelectorPipe
   ],
   imports: [
     BrowserModule,

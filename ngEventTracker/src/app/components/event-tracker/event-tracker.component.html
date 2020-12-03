@@ -5,17 +5,49 @@
     <h1 class="text-center">Welcome to the Food Tracker</h1>
   <div class="text-center">
     <p>
-        Total Spent: {{totalCost(recipes)|currency}} |
-        Total Servings: {{totalServings(recipes)}} |
-        Average Cost per Serving: {{totalCost(recipes)/totalServings(recipes)|currency}}
+        Total Spent: {{totalCost(recipes| monthSelector:monthVal:yearVal)|currency}} |
+        Total Servings: {{totalServings(recipes| monthSelector:monthVal:yearVal)}} |
+        Average Cost per Serving: {{totalCost(recipes| monthSelector:monthVal:yearVal)/totalServings(recipes)|currency}}
     </p>
   </div>
     <hr>
     <input *ngIf="!selected && !showNewForm" type="button" class="btn btn-info" value="Add a Meal" (click)="showNewForm=true"/>
+    <br><br>
   </div>
   <div class="row justify-content-md-center">
     <div class="col"></div>
     <div class="col col-md-auto">
+      <form class="form-inline" *ngIf="!selected && !showNewForm">
+        <div class="form-group">
+        <label for="month">Search by month/year&nbsp;</label>
+        <select id="month" name="month" [(ngModel)]="monthVal">
+          <option default value="-1">- Month -</option>
+          <option value="01">January</option>
+          <option value="02">Febuary</option>
+          <option value="03">March</option>
+          <option value="04">April</option>
+          <option value="05">May</option>
+          <option value="06">June</option>
+          <option value="07">July</option>
+          <option value="08">August</option>
+          <option value="09">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        &nbsp;
+        <select name="year" [(ngModel)]="yearVal">
+          <option default value="-1">- Year -</option>
+          <option value="2020">2022</option>
+          <option value="2020">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+          <option value="2018">2018</option>
+          </select>
+          &nbsp;
+          <button class="btn btn-secondary" (click)="monthVal='-1' && yearVal='-1'" *ngIf="monthVal>0 && yearVal>0">Show all</button>
+        </div>
+          </form>
       <br />
       <!-- Recipe List -->
       <table *ngIf="!selected && !showNewForm" class="table table-hover">
@@ -28,7 +60,7 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let recipe of recipes"
+            *ngFor="let recipe of recipes | monthSelector:monthVal:yearVal"
             (click)="selected = recipe"
             class="mainTableRow"
           >
