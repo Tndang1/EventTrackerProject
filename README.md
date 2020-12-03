@@ -14,12 +14,17 @@ This project is designed to track the instant/one pot meals the user makes. The 
 4. MySQL
 5. Postman
 6. AWS
+7. Angular
 
-## Page use
+## Page use.
 1. Initial page. User can click the 'Add a meal' button. The form for adding meal info will appear at the top of the page. User can fillout the form and select submit to add a meal. User can also select cancel and close the form.
-2. Initial page. User can select a meal from the list below the 'Add a meal' button. This will expand the meal and provide more detailed information about that entry. Clicking the top of the entry will close it. They will also see an 'update' and 'delete' button.
+2. Initial page. User can select a meal from the list below the 'Add a meal' button. This will display more detailed information about that entry.  They will also see 'return,' 'update', and 'delete' buttons.
 3. On selecting update the update form will appear. User can edit each field and submit, or select cancel.
 4. On selecting delete the entry is removed, and user is returned to the homepage.
+5. The user is able to search by month/year.
+6. The page has an about section which can be accessed in the navbar.
+7. The page has a not found section, which can be accessed through either an invalid html address or selecting secrets of the universe in the navbar.
+8. The footer will stay at the bottom of the content as more entries are added.
 
 ## Bugs
 1. If the user selects and closes several entries they will sometimes duplicate the previous entries information in the page. A refresh or selecting the entry will show the correct information.

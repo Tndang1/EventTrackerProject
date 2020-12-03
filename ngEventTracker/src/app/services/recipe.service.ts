@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
@@ -8,7 +9,8 @@ import { Recipe } from '../models/recipe';
   providedIn: 'root'
 })
 export class RecipeService {
-  private baseUrl = 'http://localhost:8085/'
+  // private baseUrl = 'http://localhost:8085/'
+  private baseUrl = environment.baseUrl;
   private url = this.baseUrl + 'api/recipes';
 
   constructor(private http: HttpClient) { }

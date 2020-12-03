@@ -1,51 +1,13 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">    
-    <meta charset="UTF-8" />
-    <title>Cheap fast easy meals</title>
-    <script type="text/javascript" src="js/eventTracker.js"></script>
-  </head>
-  <body>
-    <div class="container-fluid">
-    <div class='mealPageHeader'>
-    <h1>Meal tracker.</h1>
-    </div>
-
-    <div class="d-none" id = 'newRecipeDiv'>
-      <form name='newRecipeForm' id='newRecipeForm' class="form-group">
-        <label for="newRecipeForm">Submit a new meal/recipe.</label>
-        <br>
-        <input class="form-control mb-2 mr-sm-2" type="text" placeholder="Name" name="name">
-        <input class="form-control mb-2 mr-sm-2" type="text" placeholder="Original Recipe URL" name="originalRecipe">
-        <input class="form-control mb-2 mr-sm-2" type="number" step="0.01" placeholder="Cost" name="cost">
-        <input class="form-control mb-2 mr-sm-2" type="number" placeholder="Servings" name="servings">
-        <textarea class="form-control mb-2 mr-sm-2" cols="30" name="actualIngredients" placeholder="Ingredients, seperate with ','"></textarea>
-        <textarea class="form-control mb-2 mr-sm-2" cols="30" name="notes" placeholder="Notes"></textarea>
-        <button type="submit" class="btn btn-primary mb-2" name="submitNew">Submit</button>
-      </form>
-      <br>
-    </div>
-    <div id ='updateRecipeDiv' class='d-none'>
-      <form name='updateRecipeForm' id='updateRecipeForm' class="form-group">
-        <label for="updateRecipeForm" id="updateFormLabel">Update Selected recipe</label>
-        <br>
-        <input class="form-control mb-2 mr-sm-2" type="text" placeholder="Name" id="updateName" name="name">
-        <input class="form-control mb-2 mr-sm-2" type="text" placeholder="Original Recipe URL" id="updateOrigRec"name="originalRecipe">
-        <input class="form-control mb-2 mr-sm-2" type="number" step="0.01" placeholder="Cost" id="updateCost" name="cost">
-        <input class="form-control mb-2 mr-sm-2" type="number" placeholder="Servings" id="updateServ" name="servings">
-        <textarea class="form-control mb-2 mr-sm-2" cols="30" name="actualIngredients" id="updateActIngred" placeholder="Ingredients, seperate with ','"></textarea>
-        <textarea class="form-control mb-2 mr-sm-2" cols="30" name="notes" id="updateNotes" placeholder="Notes"></textarea>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary mb-2" name="submitUpdate">Submit Update</button>
-        </div>
-      </form>
-    </div>
-    <div class="container text-center">
-      <button type="submit" id="addAMealForm" class="btn btn-primary mb-2">Add a meal?</button>
-    </div>
-    <div id="showAllMeals" class='container'></div>
-    </div>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NgEventTracker</title>
+  <base href="/OnePot/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.ba64a83d653be91630ec.css"></head>
+<body>
+  <app-root></app-root>
+<script src="runtime.359d5ee4682f20e936e9.js" defer></script><script src="polyfills.f43954ace77eaf1b4591.js" defer></script><script src="main.01d0b82fa54453541299.js" defer></script></body>
 </html>
